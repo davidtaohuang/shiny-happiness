@@ -35,7 +35,7 @@ OBJDIR := obj
 
 OBJS := $(addprefix $(OBJDIR)/, $(patsubst %.c,%.o,$(SRCFILES)))
 
-NAME = myprintf
+NAME = libftprintf.a
 
 all: $(NAME)
 
@@ -53,8 +53,10 @@ $(OBJDIR):
 		@mkdir $(OBJDIR)
 
 $(NAME): ft_printf.h $(OBJS) $(LIB)
-		@echo "Creating $(NAME)..."
-		# @$(CC) $(CFLAGS) $(GFLAGS) $(OBJS) main.c -o $@ -L libft/ -lft
+		@echo "Creating printf library..."
+		@ar rc libftprintf.a $(OBJS) libft/libft.a
+		@echo "Indexing printf library..."
+		@ranlib libftprintf.a
 		@echo "All done!"
 
 testing: ft_printf.h
@@ -68,7 +70,7 @@ clean:
 
 fclean: clean
 		@echo "Deleting $(NAME)..."
-		@rm -f $(NAME)
+		@rm -rf $(NAME)
 		make fclean -C libft/
 
 re: fclean all
