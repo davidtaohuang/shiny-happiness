@@ -52,7 +52,7 @@ $(OBJDIR):
 		@echo "Creating subdirectory for object files..."
 		@mkdir $(OBJDIR)
 
-$(NAME): ft_printf.h $(OBJS) $(LIB) main.c
+$(NAME): ft_printf.h $(OBJS) $(LIB)
 		@echo "Creating $(NAME)..."
 		@$(CC) $(CFLAGS) $(GFLAGS) $(OBJS) main.c -o $@ -L libft/ -lft
 		@echo "All done!"
