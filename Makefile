@@ -76,9 +76,9 @@ OBJDIR := obj
 
 OBJS := $(addprefix $(OBJDIR)/, $(patsubst %.c,%.o,$(SRCFILES)))
 
-NAME = libftprintf.a
+LPF = libprintf.a
 
-all: $(NAME)
+all: $(LPF)
 
 $(LIB):
 		make -C libft/
@@ -93,11 +93,11 @@ $(OBJDIR):
 		@echo "Creating subdirectory for object files..."
 		@mkdir $(OBJDIR)
 
-$(NAME): ft_printf.h $(OBJS) $(LIB)
+$(LPF): ft_printf.h $(OBJS) $(LIB)
 		@echo "Creating printf library..."
-		@ar rc libftprintf.a $(OBJS) $(LOBJS)
+		@ar rc libprintf.a $(OBJS) $(LOBJS)
 		@echo "Indexing printf library..."
-		@ranlib libftprintf.a
+		@ranlib libprintf.a
 		@echo "All done!"
 
 testing: ft_printf.h
