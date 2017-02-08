@@ -76,7 +76,7 @@ OBJDIR := obj
 
 OBJS := $(addprefix $(OBJDIR)/, $(patsubst %.c,%.o,$(SRCFILES)))
 
-LPF = libprintf.a
+LPF = libftprintf.a
 
 all: $(LPF)
 
@@ -95,9 +95,9 @@ $(OBJDIR):
 
 $(LPF): ft_printf.h $(OBJS) $(LIB)
 		@echo "Creating printf library..."
-		@ar rc libprintf.a $(OBJS) $(LOBJS)
+		@ar rc $(LPF) $(OBJS) $(LOBJS)
 		@echo "Indexing printf library..."
-		@ranlib libprintf.a
+		@ranlib $(LPF)
 		@echo "All done!"
 
 testing: ft_printf.h
@@ -111,7 +111,7 @@ clean:
 
 fclean: clean
 		@echo "Deleting $(NAME)..."
-		@rm -rf $(NAME)
+		@rm -rf $(LPF)
 		make fclean -C libft/
 
 re: fclean all
