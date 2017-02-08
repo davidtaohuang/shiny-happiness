@@ -44,7 +44,7 @@ void	typeswitch(t_data **pf)
 			formatdbl(pf, i);
 		else if (LT == 'd' || LT == 'i')
 			formatnum(pf, i);
-		else
+		else if (LT != 'c' && LT != 's')
 			formatunum(pf, i);
 		if (TYPE != 'n' && TYPE != '%')
 			padswitch(pf, i);
