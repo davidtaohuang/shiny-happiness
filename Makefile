@@ -95,9 +95,9 @@ $(OBJDIR):
 
 $(LPF): ft_printf.h $(OBJS) $(LIB)
 		@echo "Creating printf library..."
-		@ar rc ../$(LPF) $(OBJS) $(LOBJS)
+		@ar rc $(LPF) $(OBJS) $(LOBJS)
 		@echo "Indexing printf library..."
-		@ranlib ../$(LPF)
+		@ranlib $(LPF)
 		@echo "All done!"
 
 testing: ft_printf.h
@@ -111,7 +111,7 @@ clean:
 
 fclean: clean
 		@echo "Deleting $(NAME)..."
-		@rm -rf ../$(LPF)
+		@rm -rf $(LPF)
 		make fclean -C libft/
 
 re: fclean all
