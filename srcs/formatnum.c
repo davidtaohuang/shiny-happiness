@@ -16,6 +16,8 @@ void	formatnum(t_format *flags)
 {
 	char		*numstr;
 
+	if (TYPE == 'D')
+		LEN = 1;
 	if (LEN == -2)
 		numstr = ft_itoa(*(char*)ARG);
 	else if (LEN == -1)
@@ -41,18 +43,37 @@ static void	ft_alllower(char *str)
 	}
 }
 
+static int	findbase(t_format *flags)
+{
+	int			base;
+
+	if (LT == 'u')
+		base = 10;
+	else if (LT == 'o')
+		base = 8;
+	else if (LT == 'x' || LT == 'p')
+		base = 16;
+	else // (LT == 'b')
+		base = 2;
+	return (base);
+}
+
 void	formatunum(t_format *flags)
 {
 	char		*numstr;
+	int			base;
 
-	if (LT == 'u')
-		numstr = ft_itoabase(*(unsigned long long*)ARG, 10);
-	else if (LT == 'o')
-		numstr = ft_itoabase(*(unsigned long long*)ARG, 8);
-	else if (LT == 'x' || LT == 'p')
-		numstr = ft_itoabase(*(unsigned long long*)ARG, 16);
-	else // (LT == 'b')
-		numstr = ft_itoabase(*(unsigned long long*)ARG, 2);
+	base = findbase(flags);
+	if (TYPE == 'U')
+		LEN = 1;
+	if (LEN == -2)
+		numstr = ft_itoabase(*(unsigned char*)ARG, base);
+	else if (LEN == -1)
+		numstr = ft_itoabase(*(unsigned short*)ARG, base);
+	else if (LEN == 0)
+		numstr = ft_itoabase(*(unsigned int*)ARG, base);
+	else
+		numstr = ft_itoabase(*(unsigned long*)ARG, base);
 	if (TYPE == 'x' || TYPE == 'p')
 		ft_alllower(numstr);
 	ft_memdel((void**)&ARG);
