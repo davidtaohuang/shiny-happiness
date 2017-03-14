@@ -85,11 +85,13 @@ void		parsestr(t_format *flags, va_list *args)
 			flags->arg = ft_strdup(tmp);
 			flags->argsize = ft_strlen((char*)(flags->arg));
 		}
-		else
+		else if (!tmp && P != 0)
 		{
 			flags->arg = ft_strdup("(null)");
 			flags->argsize = 6;
 		}
+		if (flags->negp && P < ARGL)
+			P = ARGL;
 	}
 	padcs(flags);
 }

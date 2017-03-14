@@ -12,6 +12,8 @@
 
 #include "../includes/ft_printf.h"
 
+char	*g_numconv = "diouxXDOUeEfFgGaAp";
+
 static int	findhhll(t_format *flags, char *tmp, int len, int i)
 {
 	if (tmp[i] == 'h')
@@ -142,9 +144,19 @@ static void	findast(t_format *flags, char *tmp, int len, va_list *args)
 		if (tmp[i] == '*')
 		{
 			if (i > 0 && tmp[i - 1] == '.')
+			{
 				flags->precision = va_arg(*args, int);
+				if (flags->precision < 0)
+				{
+					flags->negp = 1;
+					flags->precision = 1;
+				}
+			}
 			else
+			{
 				flags->width = va_arg(*args, int);
+				// flags->flagzero = 0;
+			}
 			i++;
 		}
 		else
@@ -185,10 +197,6 @@ static void	findflags(t_format *flags, char *tmp, int len)
 			flags->flagpound = 1;
 		i++;
 	}
-	if (flags->flagminus || flags->flagspace)
-		flags->flagzero = 0;
-	if (flags->flagplus)
-		flags->flagspace = 0;
 }
 
 void	datasetup(t_format *flags, char *format, va_list *args)
@@ -205,6 +213,13 @@ void	datasetup(t_format *flags, char *format, va_list *args)
 	findp(flags, tmp, len);
 	findast(flags, tmp, len, args);
 	if (flags->width < 0)
+	{
 		flags->width *= -1;
+		flags->flagminus = 1;
+	}
+	if (flags->flagminus || flags->flagspace || (!P && ft_strchr(g_numconv, TYPE)))
+		flags->flagzero = 0;
+	if (flags->flagplus)
+		flags->flagspace = 0;
 	findlength(flags, tmp, len);
 }

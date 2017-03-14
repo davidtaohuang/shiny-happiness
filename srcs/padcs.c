@@ -81,10 +81,10 @@ static void	padcs2(t_format *flags)
 	if (FGZ)
 		ft_memset(t1, '0', W - ARGL);
 	else
-		ft_memset(t1, ' ', W - ARGL);
+		ft_memset(t1, ' ', W - ARGL);;
 	if (FGM)
 	{
-		ARG = ft_strjoinreplace(t2, t1);
+		ARG = ft_pfstrnj(t2, ARGL, t1, W - ARGL);
 		ft_memdel((void**)&t1);
 	}
 	else
@@ -103,7 +103,7 @@ void		padcs(t_format *flags)
 		padw(flags);
 	else
 	{
-		if (P < ARGL && P > 0)
+		if (P < ARGL && ((LT == 's' && P >= 0) || (LT == 'c' && P > 0)))
 		{
 			t1 = ft_strsub(ARG, 0, P);
 			ft_memdel((void**)&ARG);

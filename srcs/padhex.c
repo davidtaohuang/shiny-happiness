@@ -34,21 +34,10 @@ char		*padhexwid(t_format *flags)
 
 static void	subzero(t_format *flags)
 {
-	char	*tmp;
-
-	if (ARGL == 1 && P != -1 && *((char*)ARG) == '0')
+	if (ARGL == 1 && P != -1 && P != 1 && *((char*)ARG) == '0')
 	{
 		*((char*)ARG) = 0;
 		ARGL = 0;
-	}
-	if (P > ARGL)
-	{
-		tmp = ft_strnew(P - ARGL);
-		ft_memset(tmp, '0', P - ARGL);
-		tmp = ft_strjoinreplace(tmp, ARG);
-		ft_memdel((void**)&ARG);
-		ARG = tmp;
-		ARGL = P;
 	}
 }
 
@@ -62,8 +51,8 @@ void		padhex(t_format *flags)
 	if (W > ARGL + 2)
 	{
 		space = ft_strnew(W - ARGL - 2);
-		ft_memset(space, ((FGZ && P < 1) ? '0' : ' '), W - ARGL - 2);
-		if (FGZ)
+		ft_memset(space, ((FGZ && P <= 1) ? '0' : ' '), W - ARGL - 2);
+		if (FGZ && P <= 1)
 			ARG = stitch3(ox, space, ARG);
 		else
 		{

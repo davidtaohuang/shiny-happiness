@@ -12,6 +12,32 @@
 
 #include "../includes/ft_printf.h"
 
+char	*ft_pfstrnj(const char *s1, size_t len1, const char *s2, size_t len2)
+{
+	char	*s;
+	size_t	n;
+	size_t	i;
+	size_t	j;
+
+	n = (size_t)(len1 + len2);
+	s = ft_strnew(n);
+	if (!s)
+		return (s);
+	i = 0;
+	while (i < len1)
+	{
+		s[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (j < len2)
+	{
+		s[i++] = s2[j++];
+	}
+	ft_memdel((void**)&s1);
+	return (s);
+}
+
 void	insertformat(t_data *pf, int len)
 {
 	char	*t1;
@@ -48,9 +74,12 @@ void	cutformat(t_data *pf, t_format *flags)
 	pf->old = t2;
 	if (TYPE != 'n')
 	{
-		if (*((char*)ARG) || LT == 'c')
+		// if (!*((char*)ARG) && LT == 'c')
+		//  	pf->nc += 1;
+		pf->str = ft_pfstrnj(pf->str, pf->strlen, ARG, ARGL);
+		if (ARG && (*((char*)ARG) || LT == 'c'))
 			pf->strlen += flags->argsize;
-		pf->str = ft_strjoinreplace(pf->str, ARG);
+		// pf->str = ft_strjoinreplace(pf->str, ARG);
 		ft_memdel((void**)&(ARG));
 	}
 }

@@ -19,21 +19,21 @@ char		*padowid(t_format *flags)
 
 	o = ft_strnew(1);
 	o[0] = '0';
+	if (P == -1)
+		P = 0;
 	if (ARGL == 1 && P != -1 && *((char*)ARG) == '0')
 	{
 		*((char*)ARG) = 0;
 		ARGL = 0;
 	}
-	if (P == -1)
-		P = 0;
 	if (P > ARGL)
 	{
-		tmp = ft_strnew(P - ARGL);
-		ft_memset(tmp, '0', P - ARGL);
+		tmp = ft_strnew(P - ARGL - 1);
+		ft_memset(tmp, '0', P - ARGL - 1);
 		tmp = ft_strjoinreplace(tmp, ARG);
 		ft_memdel((void**)&ARG);
 		ARG = tmp;
-		ARGL = P;
+		ARGL = P - 1;
 	}
 	return (o);
 }
@@ -44,10 +44,10 @@ void		padoct(t_format *flags)
 	char	*space;
 
 	o = padowid(flags);
-	if (W > ARGL)
+	if (W > ARGL + 1)
 	{
-		space = ft_strnew(W - ARGL);
-		ft_memset(space, ((FGZ && P < 1) ? '0' : ' '), W - ARGL);
+		space = ft_strnew(W - ARGL - 1);
+		ft_memset(space, ((FGZ && P <= 1) ? '0' : ' '), W - ARGL - 1);
 		if (FGZ)
 			ARG = stitch3(o, space, ARG);
 		else

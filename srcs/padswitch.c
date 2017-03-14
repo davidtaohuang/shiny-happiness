@@ -39,17 +39,6 @@ void	padgen2(t_format *flags)
 
 void	padgen(t_format *flags)
 {
-	char	*tmp;
-
-	if (P > ARGL)
-	{
-		tmp = ft_strnew(P - ARGL);
-		ft_memset(tmp, '0', P - ARGL);
-		tmp = ft_strjoinreplace(tmp, ARG);
-		ft_memdel((void**)&ARG);
-		ARG = tmp;
-		ARGL = P;
-	}
 	if (W > ARGL)
 		padgen2(flags);
 }

@@ -28,6 +28,8 @@ typedef struct	s_format
 	char		flagminus;
 	char		flagpound;
 	char		flagspace;
+	char		negp;
+	char		wast;
 	int			width;
 	int			precision;
 	int			length;
@@ -43,9 +45,7 @@ typedef struct	s_data
 	char		*old;
 	int			index;
 	int			strlen;
-	int			woffset;
 	int			nc;
-	int			ns;
 }				t_data;
 
 #define STR pf->str //string
@@ -66,6 +66,7 @@ typedef struct	s_data
 int				ft_printf(const char *restrict format, ...);
 void			datasetup(t_format *flags, char *format, va_list *args);
 void			insertformat(t_data *pf, int len);
+char			*ft_pfstrnj(const char *s1, size_t len1, const char *s2, size_t len2);
 void			cutformat(t_data *pf, t_format *flags);
 void			parseswitch(t_format *flags, va_list *args, t_data *pf);
 

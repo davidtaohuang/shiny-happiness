@@ -41,6 +41,18 @@ static void	findformat(t_data *pf, va_list *args)
 	ft_memdel((void**)&flags);
 }
 
+static void	ft_pfstr(t_data pf)
+{
+	int		i;
+
+	if (pf.str)
+	{
+		i = 0;
+		while (i++ < pf.strlen)
+			write(1, pf.str++, 1);
+	}
+}
+
 int			ft_printf(const char *restrict format, ...)
 {
 	va_list args;
@@ -57,7 +69,8 @@ int			ft_printf(const char *restrict format, ...)
 			findformat(&pf, &args);
 		va_end(args);
 		// ft_memdel((void**)&args);
-		ft_putstr(pf.str);
+		// ft_putstr(pf.str);
+		ft_pfstr(pf);
 		ft_memdel((void**)&(pf.str));
 		ft_memdel((void**)&(pf.old));
 		return (pf.strlen);
