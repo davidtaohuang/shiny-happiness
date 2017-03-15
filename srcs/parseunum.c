@@ -40,7 +40,9 @@ static void	parsehunum(t_format *flags, va_list *args)
 
 void		parseunum(t_format *flags, va_list *args)
 {
-	if (TYPE == 'U' || TYPE == 'B' || TYPE == 'O' || LEN == 1)
+	if (TYPE == 'U' || TYPE == 'B' || TYPE == 'O')
+		LEN = 1;
+	if (LEN == 1)
 	{
 		flags->arg = (unsigned long*)ft_memalloc(sizeof(unsigned long));
 		*(unsigned long*)(flags->arg) = va_arg(*args, unsigned long);

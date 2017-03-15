@@ -64,8 +64,6 @@ void	formatunum(t_format *flags)
 	int			base;
 
 	base = findbase(flags);
-	if (TYPE == 'U')
-		LEN = 1;
 	if (LEN == -2)
 		numstr = ft_itoabase(*(unsigned char*)ARG, base);
 	else if (LEN == -1)

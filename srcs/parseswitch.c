@@ -32,6 +32,7 @@ void	parseptr(t_format *flags, va_list *args)
 	flags->arg = (void**)ft_memalloc(sizeof(void*));
 	*(void**)((flags->arg)) = va_arg(*args, void*);
 	flags->argsize = sizeof(void*);
+	LEN = 1;
 	formatunum(flags);
 	padhex(flags);
 }
