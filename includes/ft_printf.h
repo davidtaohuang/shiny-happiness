@@ -31,7 +31,9 @@ typedef struct	s_format
 	char		negp;
 	char		wast;
 	int			width;
+	int			wl;
 	int			precision;
+	int			pl;
 	int			length;
 	char		conversion;
 	void		*arg;
