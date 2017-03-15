@@ -64,7 +64,7 @@ void		parsechar(t_format *flags, va_list *args)
 	{
 		flags->arg = (char*)ft_memalloc(sizeof(char) * 2);
 		*(char*)(flags->arg) = va_arg(*args, int);
-		flags->argsize = sizeof(char);
+		flags->argsize = 1;
 		// if (((char*)(flags->arg))[0] == '\0')
 		// 	pf->nc++;
 	}

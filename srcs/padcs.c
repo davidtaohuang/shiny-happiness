@@ -70,13 +70,33 @@ static void	padw(t_format *flags)
 		padw2(flags);
 }
 
+char	*ft_strndup(const char *s1, size_t n)
+{
+	char	*s;
+	size_t	i;
+
+	s = ft_strnew(n);
+	if (!s)
+		return (NULL);
+	if (s1)
+	{
+		i = 0;
+		while (i < n)
+		{
+			s[i] = s1[i];
+			i++;
+		}
+	}
+	return (s);
+}
+
 static void	padcs2(t_format *flags)
 {
 	char	*t1;
 	char	*t2;
 
 	t1 = ft_strnew(W - ARGL);
-	t2 = ft_strdup(ARG);
+	t2 = ft_strndup(ARG, ARGL);
 	ft_memdel((void**)&ARG);
 	if (FGZ)
 		ft_memset(t1, '0', W - ARGL);
@@ -89,7 +109,7 @@ static void	padcs2(t_format *flags)
 	}
 	else
 	{
-		ARG = ft_strjoinreplace(t1, t2);
+		ARG = ft_pfstrnj(t1, W - ARGL, t2, ARGL);
 		ft_memdel((void**)&t2);
 	}
 	ARGL = W;
@@ -99,7 +119,7 @@ void		padcs(t_format *flags)
 {
 	char	*t1;
 
-	if ((LT == 's' || LT == 'c') && (TYPE == 'C' || TYPE == 'S' || LEN == 1))
+	if (TYPE == 'C' || TYPE == 'S' || LEN == 1)
 		padw(flags);
 	else
 	{

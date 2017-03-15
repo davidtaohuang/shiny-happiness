@@ -31,9 +31,7 @@ char	*ft_pfstrnj(const char *s1, size_t len1, const char *s2, size_t len2)
 	}
 	j = 0;
 	while (j < len2)
-	{
 		s[i++] = s2[j++];
-	}
 	ft_memdel((void**)&s1);
 	return (s);
 }
@@ -44,7 +42,7 @@ void	insertformat(t_data *pf, int len)
 	int		end;
 
 	t1 = ft_strsub(pf->old, 0, len);
-	pf->str = ft_strjoinreplace(pf->str, t1);
+	pf->str = ft_pfstrnj(pf->str, pf->strlen, t1, len);
 	ft_memdel((void**)&t1);
 	if (pf->old[len])
 	{
@@ -78,7 +76,7 @@ void	cutformat(t_data *pf, t_format *flags)
 		//  	pf->nc += 1;
 		pf->str = ft_pfstrnj(pf->str, pf->strlen, ARG, ARGL);
 		if (ARG && (*((char*)ARG) || LT == 'c'))
-			pf->strlen += flags->argsize;
+			pf->strlen += ARGL;
 		// pf->str = ft_strjoinreplace(pf->str, ARG);
 		ft_memdel((void**)&(ARG));
 	}

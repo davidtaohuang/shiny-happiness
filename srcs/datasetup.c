@@ -217,7 +217,7 @@ void	datasetup(t_format *flags, char *format, va_list *args)
 		flags->width *= -1;
 		flags->flagminus = 1;
 	}
-	if (flags->flagminus || flags->flagspace || (!P && ft_strchr(g_numconv, TYPE)))
+	if (flags->flagminus || (!P && ft_strchr(g_numconv, TYPE)))
 		flags->flagzero = 0;
 	if (flags->flagplus)
 		flags->flagspace = 0;
