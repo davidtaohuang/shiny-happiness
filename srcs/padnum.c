@@ -63,7 +63,7 @@ void		padnum(t_format *flags)
 	if (W > ARGL + (s[0] ? 1 : 0))
 	{
 		space = ft_strnew(W - ARGL - (s[0] ? 1 : 0));
-		ft_memset(space, ((FGZ && P <= 1) ? '0' : ' '), W - ARGL - (s[0] ? 1 : 0));
+		ft_memset(space, ((FGZ && P <= flags->negp) ? '0' : ' '), W - ARGL - (s[0] ? 1 : 0));
 		if (FGZ && P <= 1)
 			ARG = stitch3(s, space, ARG);
 		else

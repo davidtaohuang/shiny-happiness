@@ -101,7 +101,10 @@ static void	findw(t_format *flags, char *tmp, int len)
 		if (ft_isdigit(tmp[i]) && tmp[i] != '0')
 		{
 			if (tmp[i - 1] != '.')
+			{
 				flags->width = ft_atoi(tmp + i);
+				flags->wl = i;
+			}
 			while (ft_isdigit(tmp[i]))
 				i++;
 		}
@@ -125,6 +128,7 @@ static void	findp(t_format *flags, char *tmp, int len)
 			if (ft_isdigit(tmp[i]))
 			{
 				flags->precision = ft_atoi(tmp + i);
+				flags->pl = i;
 				while (ft_isdigit(tmp[i]))
 					i++;
 			}
@@ -132,6 +136,17 @@ static void	findp(t_format *flags, char *tmp, int len)
 		else
 			i++;
 	}
+}
+
+static void	assignast(t_format *flags, va_list *args, int i, int w)
+{
+	int		arg;
+
+	arg = va_arg(*args, int);
+	if (w && (!(flags->wl) || i > flags->wl))
+		flags->width = arg;
+	else if (!w && (!(flags->pl) || i > flags->pl))
+		flags->precision = arg;
 }
 
 static void	findast(t_format *flags, char *tmp, int len, va_list *args)
@@ -145,7 +160,8 @@ static void	findast(t_format *flags, char *tmp, int len, va_list *args)
 		{
 			if (i > 0 && tmp[i - 1] == '.')
 			{
-				flags->precision = va_arg(*args, int);
+				assignast(flags, args, i, 0);
+				// flags->precision = va_arg(*args, int);
 				if (flags->precision < 0)
 				{
 					flags->negp = 1;
@@ -154,8 +170,8 @@ static void	findast(t_format *flags, char *tmp, int len, va_list *args)
 			}
 			else
 			{
-				flags->width = va_arg(*args, int);
-				// flags->flagzero = 0;
+				assignast(flags, args, i, 1);
+				// flags->width = va_arg(*args, int);
 			}
 			i++;
 		}
