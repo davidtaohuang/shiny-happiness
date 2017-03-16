@@ -75,7 +75,7 @@ void	cutformat(t_data *pf, t_format *flags)
 	{
 		// if (!*((char*)ARG) && LT == 'c')
 		//  	pf->nc += 1;
-		pf->str = ft_pfstrnj(pf->str, BLEN, ARG, ARGL);
+		pf->str = ft_pfstrnj(pf->str, BLEN, ARG, FBLEN);
 		if (ARG && (*((char*)ARG) || LT == 'c'))
 		{
 			CLEN += ARGL;

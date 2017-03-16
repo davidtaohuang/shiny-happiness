@@ -61,7 +61,7 @@ int			ft_printf(const char *restrict format, ...)
 		write(1, pf.str, pf.bytelen);
 		ft_memdel((void**)&(pf.str));
 		ft_memdel((void**)&(pf.old));
-		return (pf.charlen);
+		return (pf.bytelen);
 	}
 	return (0);
 }
