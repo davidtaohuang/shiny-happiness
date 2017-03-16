@@ -58,7 +58,9 @@ static void	parsewide(t_format *flags, va_list *args)
 
 void		parsechar(t_format *flags, va_list *args)
 {
-	if (LEN == 1 || TYPE == 'C')
+	if (TYPE == 'C')
+		LEN = 1;
+	if (LEN == 1)
 		parsewide(flags, args);
 	else
 	{
@@ -75,7 +77,9 @@ void		parsestr(t_format *flags, va_list *args)
 {
 	char	*tmp;
 
-	if (LEN == 1 || TYPE == 'S')
+	if (TYPE == 'S')
+		LEN = 1;
+	if (LEN == 1)
 		parsewide(flags, args);
 	else
 	{

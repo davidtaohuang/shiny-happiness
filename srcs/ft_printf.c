@@ -49,7 +49,7 @@ int			ft_printf(const char *restrict format, ...)
 	if (format)
 	{
 		ft_bzero(&pf, sizeof(pf));
-		pf.strlen = 0;
+		pf.bytelen = 0;
 		pf.str = ft_strnew(0);
 		pf.old = ft_strdup(format);
 		va_start(args, format);
@@ -58,10 +58,10 @@ int			ft_printf(const char *restrict format, ...)
 		va_end(args);
 		// ft_memdel((void**)&args);
 		// ft_putstr(pf.str);
-		write(1, pf.str, pf.strlen);
+		write(1, pf.str, pf.bytelen);
 		ft_memdel((void**)&(pf.str));
 		ft_memdel((void**)&(pf.old));
-		return (pf.strlen);
+		return (pf.charlen);
 	}
 	return (0);
 }

@@ -16,7 +16,7 @@ void	parsen(t_format *flags, va_list *args, t_data *pf)
 {
 	flags->arg = va_arg(*args, int*);
 	flags->argsize = sizeof(int);
-	*((int*)flags->arg) = pf->strlen;
+	*((int*)flags->arg) = CLEN;
 }
 
 void	parsepct(t_format *flags)
