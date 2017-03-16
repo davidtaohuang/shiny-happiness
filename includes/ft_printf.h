@@ -45,17 +45,19 @@ typedef struct	s_data
 {
 	char		*str;
 	char		*old;
-	int			index;
-	int			strlen;
-	int			nc;
+	int			charlen;
+	int			bytelen;
 }				t_data;
 
-#define STR pf->str //string
+#define STR pf->str
+#define CLEN pf->charlen
+#define BLEN pf->bytelen
 #define TYPE flags->conversion
 #define LT ft_tolower(flags->conversion)
 #define LEN flags->length
 #define ARG flags->arg
 #define ARGL flags->argsize
+#define FBLEN flags->bytelen
 #define FGP flags->flagplus
 #define FGS flags->flagspace
 #define FGN flags->flagpound
