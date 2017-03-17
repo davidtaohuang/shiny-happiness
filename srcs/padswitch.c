@@ -43,7 +43,7 @@ void	padgen(t_format *flags)
 		padgen2(flags);
 }
 
-void		*stitch3(char *s1, char *s2, char *s3)
+void	*stitch3(char *s1, char *s2, char *s3)
 {
 	char	*str;
 
@@ -54,7 +54,7 @@ void		*stitch3(char *s1, char *s2, char *s3)
 	return (str);
 }
 
-void		*stitch2(char *s1, char *s2)
+void	*stitch2(char *s1, char *s2)
 {
 	char	*str;
 

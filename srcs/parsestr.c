@@ -34,26 +34,40 @@ int			ft_charlen(unsigned char *str)
 	return (len);
 }
 
-static void	parsewide(t_format *flags, va_list *args)
+static void	parsewc(t_format *flags, va_list *args)
 {
 	wchar_t	*tmp;
 
-	if (LT == 'c')
-	{
-		tmp = (wchar_t*)ft_memalloc(sizeof(wchar_t) * 2);
-		*tmp = va_arg(*args, wchar_t);
-		flags->arg = ft_wstouni(tmp);
-		flags->argsize = 1;
+	tmp = (wchar_t*)ft_memalloc(sizeof(wchar_t) * 2);
+	*tmp = va_arg(*args, wchar_t);
+	flags->arg = ft_wstouni(tmp);
+	flags->argsize = 1;
+	if (*tmp)
 		flags->bytelen = ft_strlen(flags->arg);
-		ft_memdel((void**)&tmp);
-	}
 	else
+		flags->bytelen = 1;
+	ft_memdel((void**)&tmp);
+}
+
+static void	parsews(t_format *flags, va_list *args)
+{
+	wchar_t	*tmp;
+
+	tmp = va_arg(*args, wchar_t*);
+	if (tmp)
 	{
-		tmp = va_arg(*args, wchar_t*);
 		flags->arg = ft_wstouni(tmp);
 		flags->argsize = ft_wstrlen(tmp);
 		flags->bytelen = ft_strlen(flags->arg);
 	}
+	else
+	{
+		flags->arg = ft_strdup("(null)");
+		flags->argsize = 6;
+		LEN = 0;
+	}
+	if (flags->negp && P < ARGL)
+		P = ARGL;
 }
 
 void		parsechar(t_format *flags, va_list *args)
@@ -61,14 +75,12 @@ void		parsechar(t_format *flags, va_list *args)
 	if (TYPE == 'C')
 		LEN = 1;
 	if (LEN == 1)
-		parsewide(flags, args);
+		parsewc(flags, args);
 	else
 	{
 		flags->arg = (char*)ft_memalloc(sizeof(char) * 2);
 		*(char*)(flags->arg) = va_arg(*args, int);
 		flags->argsize = 1;
-		// if (((char*)(flags->arg))[0] == '\0')
-		// 	pf->nc++;
 	}
 	padcs(flags);
 }
@@ -80,7 +92,7 @@ void		parsestr(t_format *flags, va_list *args)
 	if (TYPE == 'S')
 		LEN = 1;
 	if (LEN == 1)
-		parsewide(flags, args);
+		parsews(flags, args);
 	else
 	{
 		tmp = va_arg(*args, char*);
@@ -89,7 +101,7 @@ void		parsestr(t_format *flags, va_list *args)
 			flags->arg = ft_strdup(tmp);
 			flags->argsize = ft_strlen((char*)(flags->arg));
 		}
-		else if (!tmp && P != 0)
+		else
 		{
 			flags->arg = ft_strdup("(null)");
 			flags->argsize = 6;

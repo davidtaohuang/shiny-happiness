@@ -41,7 +41,7 @@ void	parseswitch(t_format *flags, va_list *args, t_data *pf)
 {
 	if (TYPE == 'p')
 		parseptr(flags, args);
-	else if(TYPE == 'n')
+	else if (TYPE == 'n')
 		parsen(flags, args, pf);
 	else if (LEN > 3)
 		parsezjt(flags, args, pf);

@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-void	formatnum(t_format *flags)
+void		formatnum(t_format *flags)
 {
 	char		*numstr;
 
@@ -53,12 +53,12 @@ static int	findbase(t_format *flags)
 		base = 8;
 	else if (LT == 'x' || LT == 'p')
 		base = 16;
-	else // (LT == 'b')
+	else
 		base = 2;
 	return (base);
 }
 
-void	formatunum(t_format *flags)
+void		formatunum(t_format *flags)
 {
 	char		*numstr;
 	int			base;
@@ -81,7 +81,7 @@ void	formatunum(t_format *flags)
 	FGS = 0;
 }
 
-void	formatzjt(t_format *flags)
+void		formatzjt(t_format *flags)
 {
 	if (LT == 'i' || LT == 'd')
 		formatnum(flags);

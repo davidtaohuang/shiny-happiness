@@ -49,46 +49,49 @@ static void	padw2(t_format *flags)
 	char	*t1;
 	char	*t2;
 
-	t1 = ft_strnew(W - ARGL);
+	t1 = ft_strnew(W - FBLEN);
 	t2 = ft_strndup(ARG, FBLEN);
 	ft_memdel((void**)&ARG);
 	if (FGZ)
-		ft_memset(t1, '0', W - ARGL);
+		ft_memset(t1, '0', W - FBLEN);
 	else
-		ft_memset(t1, ' ', W - ARGL);
+		ft_memset(t1, ' ', W - FBLEN);
 	if (FGM)
 	{
-		ARG = ft_pfstrnj(t2, FBLEN, t1, W - ARGL);
-		ft_memdel((void**)&t2);
+		ARG = ft_pfstrnj(t2, FBLEN, t1, W - FBLEN);
+		ft_memdel((void**)&t1);
 	}
 	else
 	{
-		ARG = ft_pfstrnj(t1, W - ARGL, t2, FBLEN);
-		ft_memdel((void**)&t1);
+		ARG = ft_pfstrnj(t1, W - FBLEN, t2, FBLEN);
+		ft_memdel((void**)&t2);
 	}
-	FBLEN += W - ARGL;
-	ARGL = W;
+	ARGL = W - FBLEN;
+	FBLEN = W;
 }
 
 static void	padw(t_format *flags)
 {
-	wchar_t	*t1;
-	int		i;
+	char	*t1;
 	int		b;
+	int		i;
 
-	if (P < ARGL && ((LT == 's' && P >= 0) || (LT == 'c' && P > 0)))
+	if (P < FBLEN && ((LT == 's' && P >= 0) || (LT == 'c' && P > 0)))
 	{
 		i = 0;
 		b = 0;
-		while (i < P)
-			b += ft_ubytes(((char*)ARG)[i]);
-		t1 = ft_wstrsub(ARG, 0, b);
+		while (b <= P)
+		{
+			i = ft_ubytes(((char*)ARG)[b]);
+			b += i;
+		}
+		b -= i;
+		t1 = ft_strsub(ARG, 0, b);
 		ft_memdel((void**)&ARG);
 		ARG = t1;
-		FBLEN += P - ARGL;
-		ARGL = P;
+		FBLEN = b;
 	}
-	if (W > ARGL)
+	if (W > FBLEN && W)
 		padw2(flags);
 }
 
@@ -103,7 +106,7 @@ static void	padcs2(t_format *flags)
 	if (FGZ)
 		ft_memset(t1, '0', W - ARGL);
 	else
-		ft_memset(t1, ' ', W - ARGL);;
+		ft_memset(t1, ' ', W - ARGL);
 	if (FGM)
 	{
 		ARG = ft_pfstrnj(t2, ARGL, t1, W - ARGL);

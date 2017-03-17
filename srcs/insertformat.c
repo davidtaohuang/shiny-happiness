@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-char	*ft_pfstrnj(const char *s1, size_t len1, const char *s2, size_t len2)
+char	*ft_pfstrnj(char *s1, size_t len1, char *s2, size_t len2)
 {
 	char	*s;
 	size_t	n;
@@ -73,15 +73,15 @@ void	cutformat(t_data *pf, t_format *flags)
 	pf->old = t2;
 	if (TYPE != 'n')
 	{
-		// if (!*((char*)ARG) && LT == 'c')
-		//  	pf->nc += 1;
-		pf->str = ft_pfstrnj(pf->str, BLEN, ARG, (((LT == 'c' || LT == 's') && LEN == 1) ? FBLEN : ARGL));
+		if ((LT == 'c' || LT == 's') && LEN == 1)
+			pf->str = ft_pfstrnj(pf->str, BLEN, ARG, FBLEN);
+		else
+			pf->str = ft_pfstrnj(pf->str, BLEN, ARG, ARGL);
 		if (ARG && (*((char*)ARG) || LT == 'c'))
 		{
 			CLEN += ARGL;
 			BLEN += (((LT == 'c' || LT == 's') && LEN == 1) ? FBLEN : ARGL);
 		}
-		// pf->str = ft_strjoinreplace(pf->str, ARG);
 		ft_memdel((void**)&(ARG));
 	}
 }

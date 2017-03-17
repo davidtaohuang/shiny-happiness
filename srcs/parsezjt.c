@@ -18,7 +18,7 @@ static void	parseagain(t_format *flags, va_list *args, t_data *pf)
 	parseswitch(flags, args, pf);
 }
 
-void	parsezjt(t_format *flags, va_list *args, t_data *pf)
+void		parsezjt(t_format *flags, va_list *args, t_data *pf)
 {
 	if (LT == 'u' || LT == 'd' || LT == 'i' || LT == 'o' || LT == 'x' ||
 		LT == 'b')

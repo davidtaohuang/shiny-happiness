@@ -58,7 +58,7 @@ void		parseunum(t_format *flags, va_list *args)
 	}
 	else if (LEN == 2)
 	{
-		flags->arg = (unsigned long long*)ft_memalloc(sizeof(unsigned long long));
+		flags->arg = (unsigned long*)ft_memalloc(sizeof(unsigned long long));
 		*(unsigned long long*)(flags->arg) = va_arg(*args, unsigned long long);
 		flags->argsize = sizeof(unsigned long long);
 	}

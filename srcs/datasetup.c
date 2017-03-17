@@ -62,35 +62,6 @@ static void	findlength(t_format *flags, char *tmp, int len)
 	}
 }
 
-// static void	findwp(t_format *flags, char *tmp, int len, va_list *args)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		if (ft_isdigit(tmp[i]) && tmp[i] != '0')
-// 		{
-// 			if (i > 0 && tmp[i - 1] == '.')
-// 				flags->precision = ft_atoi(tmp + i);
-// 			else
-// 				flags->width = ft_atoi(tmp + i);
-// 			while (ft_isdigit(tmp[i]))
-// 				i++;
-// 		}
-// 		else if (tmp[i] == '*')
-// 		{
-// 			if (i > 0 && tmp[i - 1] == '.')
-// 				flags->precision = va_arg(*args, int);
-// 			else
-// 				flags->width = va_arg(*args, int);
-// 			i++;
-// 		}
-// 		else
-// 			i++;
-// 	}
-// }
-
 static void	findw(t_format *flags, char *tmp, int len)
 {
 	int		i;
@@ -161,7 +132,6 @@ static void	findast(t_format *flags, char *tmp, int len, va_list *args)
 			if (i > 0 && tmp[i - 1] == '.')
 			{
 				assignast(flags, args, i, 0);
-				// flags->precision = va_arg(*args, int);
 				if (flags->precision < 0)
 				{
 					flags->negp = 1;
@@ -169,10 +139,7 @@ static void	findast(t_format *flags, char *tmp, int len, va_list *args)
 				}
 			}
 			else
-			{
 				assignast(flags, args, i, 1);
-				// flags->width = va_arg(*args, int);
-			}
 			i++;
 		}
 		else
@@ -180,18 +147,8 @@ static void	findast(t_format *flags, char *tmp, int len, va_list *args)
 	}
 }
 
-/* Didn't initially realize that multiple flages are permitted,
-** using bitwise operators to keep track of flags now.
-** '-' corresponds to 1.
-** '+' corresponds to 2.
-** ' ' corresponds to 4.
-** '0' corresponds to 8.
-** '#' corresponds to 16.
-**
-** Unfortunately, flags are codependent, and order doesn't matter?
-**
+/*
 ** 1. Either '+' or ' ' but not both.
-** 2.
 */
 
 static void	findflags(t_format *flags, char *tmp, int len)
@@ -219,7 +176,7 @@ void	datasetup(t_format *flags, char *format, va_list *args)
 {
 	int			len;
 	char		*tmp;
-	
+
 	tmp = format;
 	tmp++;
 	flags->precision = -1;

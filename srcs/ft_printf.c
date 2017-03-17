@@ -56,8 +56,6 @@ int			ft_printf(const char *restrict format, ...)
 		while (*(pf.old))
 			findformat(&pf, &args);
 		va_end(args);
-		// ft_memdel((void**)&args);
-		// ft_putstr(pf.str);
 		write(1, pf.str, pf.bytelen);
 		ft_memdel((void**)&(pf.str));
 		ft_memdel((void**)&(pf.old));

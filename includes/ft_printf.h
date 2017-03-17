@@ -22,55 +22,54 @@
 
 typedef struct	s_format
 {
-	//int			index;
-	char		flagzero;
-	char		flagplus;
-	char		flagminus;
-	char		flagpound;
-	char		flagspace;
-	char		negp;
-	char		wast;
-	int			width;
-	int			wl;
-	int			precision;
-	int			pl;
-	int			length;
-	char		conversion;
-	void		*arg;
-	int			argsize;
-	int			bytelen;
+	char	flagzero;
+	char	flagplus;
+	char	flagminus;
+	char	flagpound;
+	char	flagspace;
+	char	negp;
+	char	wast;
+	int		width;
+	int		wl;
+	int		precision;
+	int		pl;
+	int		length;
+	char	conversion;
+	void	*arg;
+	int		argsize;
+	int		bytelen;
 }				t_format;
 
 typedef struct	s_data
 {
-	char		*str;
-	char		*old;
-	int			charlen;
-	int			bytelen;
+	char	*str;
+	char	*old;
+	int		charlen;
+	int		bytelen;
 }				t_data;
 
-#define STR pf->str
-#define CLEN pf->charlen
-#define BLEN pf->bytelen
-#define TYPE flags->conversion
-#define LT ft_tolower(flags->conversion)
-#define LEN flags->length
-#define ARG flags->arg
-#define ARGL flags->argsize
-#define FBLEN flags->bytelen
-#define FGP flags->flagplus
-#define FGS flags->flagspace
-#define FGN flags->flagpound
-#define FGM flags->flagminus
-#define FGZ flags->flagzero
-#define P flags->precision
-#define W flags->width
-#define SA ((char*)flags->arg)[0]
+# define STR pf->str
+# define CLEN pf->charlen
+# define BLEN pf->bytelen
+# define TYPE flags->conversion
+# define LT ft_tolower(flags->conversion)
+# define LEN flags->length
+# define ARG flags->arg
+# define ARGL flags->argsize
+# define FBLEN flags->bytelen
+# define FGP flags->flagplus
+# define FGS flags->flagspace
+# define FGN flags->flagpound
+# define FGM flags->flagminus
+# define FGZ flags->flagzero
+# define P flags->precision
+# define W flags->width
+# define SA ((char*)flags->arg)[0]
 
 int				ft_printf(const char *restrict format, ...);
 void			datasetup(t_format *flags, char *format, va_list *args);
 void			insertformat(t_data *pf, int len);
-char			*ft_pfstrnj(const char *s1, size_t len1, const char *s2, size_t len2);
+char			*ft_pfstrnj(char *s1, size_t len1, char *s2, size_t len2);
 void			cutformat(t_data *pf, t_format *flags);
 void			parseswitch(t_format *flags, va_list *args, t_data *pf);
 
