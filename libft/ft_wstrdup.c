@@ -21,8 +21,8 @@ int			ft_wstrlen(const wchar_t *s)
 	i = 0;
 	if (s)
 	{
-	while (s[i])
-		i++;
+		while (s[i])
+			i++;
 	}
 	return (i);
 }
