@@ -59,6 +59,7 @@ char		*ft_itoa(long long n)
 	char		*a;
 
 	num = n;
+	mincheck = 0;
 	if (n < 0)
 	{
 		mincheck = minchecker(&num);

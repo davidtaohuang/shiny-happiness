@@ -15,31 +15,59 @@
 
 int		ft_dtoa(double n, int p, char *frac)
 {
-	double		holder;
-	int			i;
-	double		tens;
-	int			lastdig;
+	long double		holder;
+	int				i;
+	long double		tens;
+	int				lastdig;
 
-	holder = n;
 	tens = 1;
 	i = 0;
 	while (i < p)
 	{
 		holder = n * tens;
-		frac[i] = (long long)((holder - ((long long)holder)) * 10) + 48;
+		frac[i] = (long)((holder - ((long long)holder)) * 10) + 48;
 		tens *= 10;
 		i++;
 	}
 	holder = n * tens;
-	lastdig = (long long)((holder - ((long long)holder)) * 10);
+	lastdig = (long)((holder - ((long)holder)) * 10);
+	return (lastdig);
+}
+
+int		ft_etoa(double n, char *frac, t_format *flags)
+{
+	long double		holder;
+	long double		tens;
+	int				lastdig;
+	int				i;
+
+	i = 0;
+	tens = 1;
+	while (!i)
+	{
+		holder = n * tens;
+		i = (long)((holder - ((long long)holder)) * 10);
+		tens *= 10;
+		flags->elen--;
+	}
+	frac[0] = i + 48;
+	i = 1;
+	while (i < EP)
+	{
+		holder = n * tens;
+		frac[i++] = (long)((holder - ((long long)holder)) * 10) + 48;
+		tens *= 10;
+	}
+	holder = n * tens;
+	lastdig = (long)((holder - ((long)holder)) * 10);
 	return (lastdig);
 }
 
 char	*adddigit(char *dec)
 {
-	char	*tmp;
-	int		i;
-	int		len;
+	char			*tmp;
+	int				i;
+	int				len;
 
 	len = ft_strlen(dec);
 	tmp = ft_strnew(len + 1);
@@ -70,8 +98,6 @@ int		rounding(char *dec, int i)
 			else
 				return (rounding(dec, i - 1));
 		}
-		if (dec[i] > '4')
-			return (rounding(dec, i - 1));
 	}
 	return (0);
 }

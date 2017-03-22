@@ -41,6 +41,7 @@ SRCFILES = 	ft_printf.c \
 			parseunum.c \
 			parsezjt.c \
 			formatdbl.c \
+			formatedbl.c \
 			padhex.c \
 			padoct.c \
 

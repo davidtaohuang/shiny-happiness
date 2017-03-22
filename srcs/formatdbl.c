@@ -29,7 +29,7 @@ char	*makeinfnan(double n)
 
 char	*makedbl(t_format *flags)
 {
-	long long	n;
+	double		n;
 	char		*str;
 	char		*frac;
 	int			lastdig;
@@ -100,4 +100,5 @@ void	formatdbl(t_format *flags)
 	ft_memdel((void**)&ARG);
 	ARG = str;
 	ARGL = ft_strlen(ARG);
+	flags->bytelen = ft_strlen(ARG);
 }

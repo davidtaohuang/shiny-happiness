@@ -35,6 +35,8 @@ typedef struct	s_format
 	int		pl;
 	int		length;
 	char	conversion;
+	int		elen;
+	int		ep;
 	void	*arg;
 	int		argsize;
 	int		bytelen;
@@ -63,6 +65,7 @@ typedef struct	s_data
 # define FGM flags->flagminus
 # define FGZ flags->flagzero
 # define P flags->precision
+# define EP flags->ep
 # define W flags->width
 # define SA ((char*)flags->arg)[0]
 
@@ -81,6 +84,7 @@ void			parsestr(t_format *flags, va_list *args);
 void			parseunum(t_format *flags, va_list *args);
 
 void			formatdbl(t_format *flags);
+void			formatedbl(t_format *flags);
 void			formatnum(t_format *flags);
 void			formatunum(t_format *flags);
 void			formatzjt(t_format *flags);
@@ -92,8 +96,12 @@ void			padoct(t_format *flags);
 void			padgen(t_format *flags);
 
 int				ft_dtoa(double n, int p, char *frac);
+int				ft_etoa(double n, char *frac, t_format *flags);
 char			*adddigit(char *dec);
 int				rounding(char *dec, int i);
+char			*makeinfnan(double n);
+char			*adddecpt(char *dec, int len);
+
 void			*stitch2(char *s1, char *s2);
 void			*stitch3(char *s1, char *s2, char *s3);
 

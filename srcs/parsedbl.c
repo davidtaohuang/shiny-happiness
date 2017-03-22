@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "../includes/ft_printf.h"
 
 void	parsedbl(t_format *flags, va_list *args)
@@ -26,8 +27,14 @@ void	parsedbl(t_format *flags, va_list *args)
 		*(double*)(flags->arg) = va_arg(*args, double);
 		flags->argsize = sizeof(double);
 	}
-	if (!(flags->precision))
+	if (flags->precision < 0)
 		flags->precision = 6;
-	formatdbl(flags);
+	if (LT == 'e')
+	{
+		flags->ep = P;
+		formatedbl(flags);
+	}
+	else
+		formatdbl(flags);
 	padnum(flags);
 }
