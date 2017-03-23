@@ -28,7 +28,7 @@ void		formatnum(t_format *flags)
 		numstr = ft_itoa(*(long*)ARG);
 	ft_memdel((void**)&ARG);
 	ARG = numstr;
-	ARGL = ft_strlen(ARG);
+	FBLEN = ft_strlen(ARG);
 }
 
 static void	ft_alllower(char *str)
@@ -76,7 +76,7 @@ void		formatunum(t_format *flags)
 		ft_alllower(numstr);
 	ft_memdel((void**)&ARG);
 	ARG = numstr;
-	ARGL = ft_strlen(ARG);
+	FBLEN = ft_strlen(ARG);
 	FGP = 0;
 	FGS = 0;
 }

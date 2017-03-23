@@ -12,6 +12,14 @@
 
 #include "../includes/ft_printf.h"
 
+/*
+**	FGP = flags->flagplus
+**	FGS = flags->flagspace
+**	FGN = flags->flagpound
+**	FGM = flags->flagminus
+**	FGZ = flags->flagzero
+*/
+
 char		*padsign(t_format *flags)
 {
 	char	*sign;
@@ -25,10 +33,10 @@ char		*padsign(t_format *flags)
 	if (SA == '-')
 	{
 		sign[0] = '-';
-		tmp = ft_strsub(ARG, 1, ARGL - 1);
+		tmp = ft_strsub(ARG, 1, FBLEN - 1);
 		ft_memdel((void**)&ARG);
 		ARG = tmp;
-		ARGL--;
+		FBLEN--;
 	}
 	return (sign);
 }
@@ -37,19 +45,19 @@ static void	subzero(t_format *flags)
 {
 	char	*tmp;
 
-	if (ARGL == 1 && P != -1 && *((char*)ARG) == '0')
+	if (FBLEN == 1 && P != -1 && *((char*)ARG) == '0')
 	{
 		*((char*)ARG) = 0;
-		ARGL = 0;
+		FBLEN = 0;
 	}
-	if (P > ARGL)
+	if (P > FBLEN)
 	{
-		tmp = ft_strnew(P - ARGL);
-		ft_memset(tmp, '0', P - ARGL);
+		tmp = ft_strnew(P - FBLEN);
+		ft_memset(tmp, '0', P - FBLEN);
 		tmp = ft_strjoinreplace(tmp, ARG);
 		ft_memdel((void**)&ARG);
 		ARG = tmp;
-		ARGL = P;
+		FBLEN = P;
 	}
 }
 
@@ -60,13 +68,13 @@ void		padnum(t_format *flags)
 
 	s = padsign(flags);
 	subzero(flags);
-	if (W > ARGL + (s[0] ? 1 : 0))
+	if (W > FBLEN + (s[0] ? 1 : 0))
 	{
-		space = ft_strnew(W - ARGL - (s[0] ? 1 : 0));
+		space = ft_strnew(W - FBLEN - (s[0] ? 1 : 0));
 		if (FGZ && P <= flags->negp)
-			ft_memset(space, '0', W - ARGL - (s[0] ? 1 : 0));
+			ft_memset(space, '0', W - FBLEN - (s[0] ? 1 : 0));
 		else
-			ft_memset(space, ' ', W - ARGL - (s[0] ? 1 : 0));
+			ft_memset(space, ' ', W - FBLEN - (s[0] ? 1 : 0));
 		if (FGZ && P <= 1)
 			ARG = stitch3(s, space, ARG);
 		else
@@ -79,5 +87,5 @@ void		padnum(t_format *flags)
 	}
 	else
 		ARG = stitch2(s, ARG);
-	ARGL = ft_strlen(ARG);
+	FBLEN = ft_strlen(ARG);
 }

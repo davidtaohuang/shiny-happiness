@@ -21,14 +21,14 @@ char	*makeexp(t_format *flags)
 
 	sign = ft_strnew(2);
 	sign[0] = TYPE;
-	if (flags->elen >= 0)
+	if (ELEN >= 0)
 		sign[1] = '+';
 	else
 	{
 		sign[1] = '-';
-		flags->elen = -(flags->elen);
+		ELEN = -(ELEN);
 	}
-	tmp = ft_itoa(flags->elen);
+	tmp = ft_itoa(ELEN);
 	if (ft_strlen(tmp) == 1)
 	{
 		tmp2 = ft_strjoin("0", tmp);
@@ -61,12 +61,12 @@ void	makeedbl2(t_format *flags, double n, char **str, int len)
 	char	*frac;
 	int		lastdig;
 
-	EP -= (flags->elen >= 0 ? 0 : flags->elen);
+	EP -= (ELEN >= 0 ? 0 : ELEN);
 	frac = ft_strnew(EP);
 	if ((*str)[0] == 0 || ((*str)[0] == '-' && (*str)[1] == 0))
 	{
 		lastdig = ft_etoa(n, frac, flags);
-		flags->elen++;
+		ELEN++;
 	}
 	else
 	{
@@ -105,7 +105,7 @@ char	*makeedbl(t_format *flags)
 	len = ft_strlen(tmp);
 	if (len == 1 && tmp[0] == '0')
 		tmp[0] = 0;
-	flags->elen += len - (tmp[0] ? 1 : 2);
+	ELEN += len - (tmp[0] ? 1 : 2);
 	str = ft_strjoinreplace(str, tmp);
 	ft_memdel((void**)&tmp);
 	makeedbl2(flags, n, &str, len);
@@ -136,6 +136,5 @@ void	formatedbl(t_format *flags)
 	ft_memdel((void**)&tmp);
 	ft_memdel((void**)&ARG);
 	ARG = str;
-	ARGL = ft_strlen(ARG);
-	flags->bytelen = ft_strlen(ARG);
+	FBLEN = ft_strlen(ARG);
 }

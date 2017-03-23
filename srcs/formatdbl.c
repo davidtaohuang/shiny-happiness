@@ -99,6 +99,5 @@ void	formatdbl(t_format *flags)
 	}
 	ft_memdel((void**)&ARG);
 	ARG = str;
-	ARGL = ft_strlen(ARG);
-	flags->bytelen = ft_strlen(ARG);
+	FBLEN = ft_strlen(ARG);
 }

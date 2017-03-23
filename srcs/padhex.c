@@ -12,6 +12,14 @@
 
 #include "../includes/ft_printf.h"
 
+/*
+**	FGP = flags->flagplus
+**	FGS = flags->flagspace
+**	FGN = flags->flagpound
+**	FGM = flags->flagminus
+**	FGZ = flags->flagzero
+*/
+
 char		*padhexwid(t_format *flags)
 {
 	char	*tmp;
@@ -20,24 +28,24 @@ char		*padhexwid(t_format *flags)
 	ox = ft_strnew(2);
 	ox[0] = '0';
 	ox[1] = (TYPE == 'p' ? 'x' : TYPE);
-	if (P > ARGL)
+	if (P > FBLEN)
 	{
-		tmp = ft_strnew(P - ARGL);
-		ft_memset(tmp, '0', P - ARGL);
+		tmp = ft_strnew(P - FBLEN);
+		ft_memset(tmp, '0', P - FBLEN);
 		tmp = ft_strjoinreplace(tmp, ARG);
 		ft_memdel((void**)&ARG);
 		ARG = tmp;
-		ARGL = P;
+		FBLEN = P;
 	}
 	return (ox);
 }
 
 static void	subzero(t_format *flags)
 {
-	if (ARGL == 1 && P != -1 && P != 1 && *((char*)ARG) == '0')
+	if (FBLEN == 1 && P != -1 && P != 1 && *((char*)ARG) == '0')
 	{
 		*((char*)ARG) = 0;
-		ARGL = 0;
+		FBLEN = 0;
 	}
 }
 
@@ -48,10 +56,10 @@ void		padhex(t_format *flags)
 
 	ox = padhexwid(flags);
 	subzero(flags);
-	if (W > ARGL + 2)
+	if (W > FBLEN + 2)
 	{
-		space = ft_strnew(W - ARGL - 2);
-		ft_memset(space, ((FGZ && P <= 1) ? '0' : ' '), W - ARGL - 2);
+		space = ft_strnew(W - FBLEN - 2);
+		ft_memset(space, ((FGZ && P <= 1) ? '0' : ' '), W - FBLEN - 2);
 		if (FGZ && P <= 1)
 			ARG = stitch3(ox, space, ARG);
 		else
@@ -64,5 +72,5 @@ void		padhex(t_format *flags)
 	}
 	else
 		ARG = stitch2(ox, ARG);
-	ARGL = ft_strlen(ARG);
+	FBLEN = ft_strlen(ARG);
 }

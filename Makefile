@@ -28,6 +28,7 @@ INCLUDES = -I includes/
 
 SRCFILES = 	ft_printf.c \
 			datasetup.c \
+			datasetup2.c \
 			parseswitch.c \
 			formatnum.c \
 			ft_dtoa.c \

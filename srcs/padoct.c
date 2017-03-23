@@ -12,6 +12,14 @@
 
 #include "../includes/ft_printf.h"
 
+/*
+**	FGP = flags->flagplus
+**	FGS = flags->flagspace
+**	FGN = flags->flagpound
+**	FGM = flags->flagminus
+**	FGZ = flags->flagzero
+*/
+
 char		*padowid(t_format *flags)
 {
 	char	*tmp;
@@ -21,19 +29,19 @@ char		*padowid(t_format *flags)
 	o[0] = '0';
 	if (P == -1)
 		P = 0;
-	if (ARGL == 1 && P != -1 && *((char*)ARG) == '0')
+	if (FBLEN == 1 && P != -1 && *((char*)ARG) == '0')
 	{
 		*((char*)ARG) = 0;
-		ARGL = 0;
+		FBLEN = 0;
 	}
-	if (P > ARGL)
+	if (P > FBLEN)
 	{
-		tmp = ft_strnew(P - ARGL - 1);
-		ft_memset(tmp, '0', P - ARGL - 1);
+		tmp = ft_strnew(P - FBLEN - 1);
+		ft_memset(tmp, '0', P - FBLEN - 1);
 		tmp = ft_strjoinreplace(tmp, ARG);
 		ft_memdel((void**)&ARG);
 		ARG = tmp;
-		ARGL = P - 1;
+		FBLEN = P - 1;
 	}
 	return (o);
 }
@@ -44,10 +52,10 @@ void		padoct(t_format *flags)
 	char	*space;
 
 	o = padowid(flags);
-	if (W > ARGL + 1)
+	if (W > FBLEN + 1)
 	{
-		space = ft_strnew(W - ARGL - 1);
-		ft_memset(space, ((FGZ && P <= 1) ? '0' : ' '), W - ARGL - 1);
+		space = ft_strnew(W - FBLEN - 1);
+		ft_memset(space, ((FGZ && P <= 1) ? '0' : ' '), W - FBLEN - 1);
 		if (FGZ)
 			ARG = stitch3(o, space, ARG);
 		else
@@ -60,5 +68,5 @@ void		padoct(t_format *flags)
 	}
 	else
 		ARG = stitch2(o, ARG);
-	ARGL = ft_strlen(ARG);
+	FBLEN = ft_strlen(ARG);
 }

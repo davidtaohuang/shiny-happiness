@@ -12,6 +12,14 @@
 
 #include "../includes/ft_printf.h"
 
+/*
+**	FGP = flags->flagplus
+**	FGS = flags->flagspace
+**	FGN = flags->flagpound
+**	FGM = flags->flagminus
+**	FGZ = flags->flagzero
+*/
+
 int			ft_ubytes(unsigned char c)
 {
 	if (c < 0x80)
@@ -22,26 +30,6 @@ int			ft_ubytes(unsigned char c)
 		return (3);
 	else
 		return (4);
-}
-
-char	*ft_strndup(const char *s1, size_t n)
-{
-	char	*s;
-	size_t	i;
-
-	s = ft_strnew(n);
-	if (!s)
-		return (NULL);
-	if (s1)
-	{
-		i = 0;
-		while (i < n)
-		{
-			s[i] = s1[i];
-			i++;
-		}
-	}
-	return (s);
 }
 
 static void	padw2(t_format *flags)
@@ -66,7 +54,6 @@ static void	padw2(t_format *flags)
 		ARG = ft_pfstrnj(t1, W - FBLEN, t2, FBLEN);
 		ft_memdel((void**)&t2);
 	}
-	ARGL = W - FBLEN;
 	FBLEN = W;
 }
 
@@ -100,24 +87,24 @@ static void	padcs2(t_format *flags)
 	char	*t1;
 	char	*t2;
 
-	t1 = ft_strnew(W - ARGL);
-	t2 = ft_strndup(ARG, ARGL);
+	t1 = ft_strnew(W - FBLEN);
+	t2 = ft_strndup(ARG, FBLEN);
 	ft_memdel((void**)&ARG);
 	if (FGZ)
-		ft_memset(t1, '0', W - ARGL);
+		ft_memset(t1, '0', W - FBLEN);
 	else
-		ft_memset(t1, ' ', W - ARGL);
+		ft_memset(t1, ' ', W - FBLEN);
 	if (FGM)
 	{
-		ARG = ft_pfstrnj(t2, ARGL, t1, W - ARGL);
+		ARG = ft_pfstrnj(t2, FBLEN, t1, W - FBLEN);
 		ft_memdel((void**)&t1);
 	}
 	else
 	{
-		ARG = ft_pfstrnj(t1, W - ARGL, t2, ARGL);
+		ARG = ft_pfstrnj(t1, W - FBLEN, t2, FBLEN);
 		ft_memdel((void**)&t2);
 	}
-	ARGL = W;
+	FBLEN = W;
 }
 
 void		padcs(t_format *flags)
@@ -128,14 +115,14 @@ void		padcs(t_format *flags)
 		padw(flags);
 	else
 	{
-		if (P < ARGL && ((LT == 's' && P >= 0) || (LT == 'c' && P > 0)))
+		if (P < FBLEN && ((LT == 's' && P >= 0) || (LT == 'c' && P > 0)))
 		{
 			t1 = ft_strsub(ARG, 0, P);
 			ft_memdel((void**)&ARG);
 			ARG = t1;
-			ARGL = P;
+			FBLEN = P;
 		}
-		if (W > ARGL && W)
+		if (W > FBLEN && W)
 			padcs2(flags);
 	}
 }

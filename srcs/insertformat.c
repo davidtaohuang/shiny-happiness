@@ -36,6 +36,26 @@ char	*ft_pfstrnj(char *s1, size_t len1, char *s2, size_t len2)
 	return (s);
 }
 
+char	*ft_strndup(const char *s1, size_t n)
+{
+	char	*s;
+	size_t	i;
+
+	s = ft_strnew(n);
+	if (!s)
+		return (NULL);
+	if (s1)
+	{
+		i = 0;
+		while (i < n)
+		{
+			s[i] = s1[i];
+			i++;
+		}
+	}
+	return (s);
+}
+
 void	insertformat(t_data *pf, int len)
 {
 	char	*t1;
@@ -56,8 +76,7 @@ void	insertformat(t_data *pf, int len)
 		ft_memdel((void**)&(pf->old));
 		pf->old = ft_strnew(0);
 	}
-	CLEN += len;
-	BLEN += len;
+	pf->bytelen += len;
 }
 
 void	cutformat(t_data *pf, t_format *flags)
@@ -73,15 +92,9 @@ void	cutformat(t_data *pf, t_format *flags)
 	pf->old = t2;
 	if (TYPE != 'n')
 	{
-		if ((LT == 'c' || LT == 's') && LEN == 1)
-			pf->str = ft_pfstrnj(pf->str, BLEN, ARG, FBLEN);
-		else
-			pf->str = ft_pfstrnj(pf->str, BLEN, ARG, ARGL);
+		pf->str = ft_pfstrnj(pf->str, BLEN, ARG, FBLEN);
 		if (ARG && (*((char*)ARG) || LT == 'c'))
-		{
-			CLEN += ARGL;
-			BLEN += (((LT == 'c' || LT == 's') && LEN == 1) ? FBLEN : ARGL);
-		}
+			BLEN += FBLEN;
 		ft_memdel((void**)&(ARG));
 	}
 }

@@ -15,15 +15,15 @@
 void	parsen(t_format *flags, va_list *args, t_data *pf)
 {
 	flags->arg = va_arg(*args, int*);
-	flags->argsize = sizeof(int);
-	*((int*)flags->arg) = CLEN;
+	FBLEN = sizeof(int);
+	*((int*)flags->arg) = BLEN;
 }
 
 void	parsepct(t_format *flags)
 {
 	flags->arg = (char*)ft_memalloc(sizeof(char));
 	*(char*)(flags->arg) = TYPE;
-	flags->argsize = 1;
+	FBLEN = 1;
 	padgen(flags);
 }
 
@@ -31,7 +31,7 @@ void	parseptr(t_format *flags, va_list *args)
 {
 	flags->arg = (void**)ft_memalloc(sizeof(void*));
 	*(void**)((flags->arg)) = va_arg(*args, void*);
-	flags->argsize = sizeof(void*);
+	FBLEN = sizeof(void*);
 	LEN = 1;
 	formatunum(flags);
 	padhex(flags);

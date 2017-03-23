@@ -41,11 +41,10 @@ static void	parsewc(t_format *flags, va_list *args)
 	tmp = (wchar_t*)ft_memalloc(sizeof(wchar_t) * 2);
 	*tmp = va_arg(*args, wchar_t);
 	flags->arg = ft_wstouni(tmp);
-	flags->argsize = 1;
 	if (*tmp)
-		flags->bytelen = ft_strlen(flags->arg);
+		FBLEN = ft_strlen(flags->arg);
 	else
-		flags->bytelen = 1;
+		FBLEN = 1;
 	ft_memdel((void**)&tmp);
 }
 
@@ -57,17 +56,16 @@ static void	parsews(t_format *flags, va_list *args)
 	if (tmp)
 	{
 		flags->arg = ft_wstouni(tmp);
-		flags->argsize = ft_wstrlen(tmp);
-		flags->bytelen = ft_strlen(flags->arg);
+		FBLEN = ft_strlen(flags->arg);
 	}
 	else
 	{
 		flags->arg = ft_strdup("(null)");
-		flags->argsize = 6;
+		FBLEN = 6;
 		LEN = 0;
 	}
-	if (flags->negp && P < ARGL)
-		P = ARGL;
+	if (flags->negp && P < FBLEN)
+		P = FBLEN;
 }
 
 void		parsechar(t_format *flags, va_list *args)
@@ -80,7 +78,7 @@ void		parsechar(t_format *flags, va_list *args)
 	{
 		flags->arg = (char*)ft_memalloc(sizeof(char) * 2);
 		*(char*)(flags->arg) = va_arg(*args, int);
-		flags->argsize = 1;
+		FBLEN = 1;
 	}
 	padcs(flags);
 }
@@ -99,15 +97,15 @@ void		parsestr(t_format *flags, va_list *args)
 		if (tmp)
 		{
 			flags->arg = ft_strdup(tmp);
-			flags->argsize = ft_strlen((char*)(flags->arg));
+			FBLEN = ft_strlen((char*)(flags->arg));
 		}
 		else
 		{
 			flags->arg = ft_strdup("(null)");
-			flags->argsize = 6;
+			FBLEN = 6;
 		}
-		if (flags->negp && P < ARGL)
-			P = ARGL;
+		if (flags->negp && P < FBLEN)
+			P = FBLEN;
 	}
 	padcs(flags);
 }

@@ -19,13 +19,13 @@ void	parsedbl(t_format *flags, va_list *args)
 	{
 		flags->arg = (long double*)ft_memalloc(sizeof(long double));
 		*(long double*)(flags->arg) = va_arg(*args, long double);
-		flags->argsize = sizeof(long double);
+		FBLEN = sizeof(long double);
 	}
 	else
 	{
 		flags->arg = (double*)ft_memalloc(sizeof(double));
 		*(double*)(flags->arg) = va_arg(*args, double);
-		flags->argsize = sizeof(double);
+		FBLEN = sizeof(double);
 	}
 	if (flags->precision < 0)
 		flags->precision = 6;

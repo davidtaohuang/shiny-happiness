@@ -12,18 +12,26 @@
 
 #include "../includes/ft_printf.h"
 
+/*
+**	FGP = flags->flagplus
+**	FGS = flags->flagspace
+**	FGN = flags->flagpound
+**	FGM = flags->flagminus
+**	FGZ = flags->flagzero
+*/
+
 void	padgen2(t_format *flags)
 {
 	char	*t1;
 	char	*t2;
 
-	t1 = ft_strnew(W - ARGL);
+	t1 = ft_strnew(W - FBLEN);
 	t2 = ft_strdup(ARG);
 	ft_memdel((void**)&ARG);
 	if (FGZ)
-		ft_memset(t1, '0', W - ARGL);
+		ft_memset(t1, '0', W - FBLEN);
 	else
-		ft_memset(t1, ' ', W - ARGL);
+		ft_memset(t1, ' ', W - FBLEN);
 	if (FGM)
 	{
 		ARG = ft_strjoinreplace(t2, t1);
@@ -34,12 +42,12 @@ void	padgen2(t_format *flags)
 		ARG = ft_strjoinreplace(t1, t2);
 		ft_memdel((void**)&t2);
 	}
-	ARGL = W;
+	FBLEN = W;
 }
 
 void	padgen(t_format *flags)
 {
-	if (W > ARGL)
+	if (W > FBLEN)
 		padgen2(flags);
 }
 
