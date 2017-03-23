@@ -41,12 +41,19 @@ char	*makeexp(t_format *flags)
 	return (tmp2);
 }
 
-int		eprecision(t_format *flags, char **str)
+int		eprecision(t_format *flags, char **str, char lastdig)
 {
 	char			*tmp;
 	unsigned int	len;
 
 	len = ((*str)[0] == '-' ? 2 : 1) + P;
+	if ((*str)[len])
+		lastdig = (int)((*str)[len] - 48);
+	if (lastdig > 4)
+	{
+		if (rounding(*str, len - 1))
+			*str = adddigit(*str);
+	}
 	if (ft_strlen(*str) > len)
 	{
 		tmp = ft_strsub(*str, 0, len);
@@ -56,10 +63,10 @@ int		eprecision(t_format *flags, char **str)
 	return (((*str)[0] == '-' ? 2 : 1));
 }
 
-void	makeedbl2(t_format *flags, double n, char **str, int len)
+char	makeedbl2(t_format *flags, double n, char **str, int len)
 {
 	char	*frac;
-	int		lastdig;
+	char	lastdig;
 
 	EP -= (ELEN >= 0 ? 0 : ELEN);
 	frac = ft_strnew(EP);
@@ -75,14 +82,7 @@ void	makeedbl2(t_format *flags, double n, char **str, int len)
 	}
 	*str = ft_strjoinreplace(*str, frac);
 	ft_memdel((void**)&frac);
-	if (lastdig > 4)
-	{
-		if (rounding(*str, ft_strlen(*str) - 1))
-		{
-			*str = adddigit(*str);
-			len++;
-		}
-	}
+	return(lastdig);
 }
 
 char	*makeedbl(t_format *flags)
@@ -108,8 +108,8 @@ char	*makeedbl(t_format *flags)
 	ELEN += len - (tmp[0] ? 1 : 2);
 	str = ft_strjoinreplace(str, tmp);
 	ft_memdel((void**)&tmp);
-	makeedbl2(flags, n, &str, len);
-	EP = eprecision(flags, &str);
+	len = makeedbl2(flags, n, &str, len);
+	EP = eprecision(flags, &str, len);
 	return (str);
 }
 

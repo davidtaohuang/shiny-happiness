@@ -147,8 +147,8 @@ void			padhex(t_format *flags);
 void			padoct(t_format *flags);
 void			padgen(t_format *flags);
 
-int				ft_dtoa(double n, int p, char *frac);
-int				ft_etoa(double n, char *frac, t_format *flags);
+char			ft_dtoa(double n, int p, char *frac);
+char			ft_etoa(double n, char *frac, t_format *flags);
 char			*adddigit(char *dec);
 int				rounding(char *dec, int i);
 char			*makeinfnan(double n);

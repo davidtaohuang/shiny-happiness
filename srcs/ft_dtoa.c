@@ -15,12 +15,12 @@
 
 #define EPSILON 1e-15
 
-int			ft_dtoa(double n, int p, char *frac)
+char		ft_dtoa(double n, int p, char *frac)
 {
 	long double		holder;
 	int				i;
 	long double		tens;
-	int				lastdig;
+	char			lastdig;
 
 	tens = 1;
 	i = 0;
@@ -64,11 +64,11 @@ static int	ft_firstdig(double n, char *frac, t_format *flags)
 	return (tens);
 }
 
-int			ft_etoa(double n, char *frac, t_format *flags)
+char		ft_etoa(double n, char *frac, t_format *flags)
 {
 	long double		holder;
 	long double		tens;
-	int				lastdig;
+	char			lastdig;
 	int				i;
 
 	tens = ft_firstdig(n, frac, flags);

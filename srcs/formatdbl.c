@@ -32,7 +32,7 @@ char	*makedbl(t_format *flags)
 	double		n;
 	char		*str;
 	char		*frac;
-	int			lastdig;
+	char		lastdig;
 	int			len;
 
 	n = *(double*)ARG;
