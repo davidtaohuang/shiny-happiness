@@ -32,7 +32,7 @@ void	parsedbl(t_format *flags, va_list *args)
 	if (LT == 'e')
 	{
 		flags->ep = P;
-		formatedbl(flags);
+		formatdbl(flags);
 	}
 	else
 		formatdbl(flags);
