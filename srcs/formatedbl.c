@@ -82,7 +82,7 @@ char	makeedbl2(t_format *flags, double n, char **str, int len)
 	}
 	*str = ft_strjoinreplace(*str, frac);
 	ft_memdel((void**)&frac);
-	return(lastdig);
+	return (lastdig);
 }
 
 char	*makeedbl(t_format *flags)

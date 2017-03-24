@@ -113,7 +113,8 @@ typedef struct	s_data
 **	5.	parse* block
 **	6.	format* block
 **	7.	pad* block; the file padswitch is left over from previous structure, it
-**		contains the switch functions and padd functions for invalid/% conversion
+**		contains the switch functions and pad functions for invalid/%
+**		conversions
 **	8.	functions specifically used in floating point conversions (just eEfF)
 **	9.	stitch helper functions for formatting/padding
 */
