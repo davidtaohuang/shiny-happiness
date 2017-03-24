@@ -10,10 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-ifdef ALLOCWRAP
-	LDFLAGS += alloc_wrap.c -ldl
-endif 
-
 .PHONY: all clean fclean re testing
 
 vpath %.h includes
@@ -166,6 +162,7 @@ $(NAME): ft_printf.h $(LOBJS) $(OBJS)
 		@ranlib $(NAME)
 		@echo "All done!"
 
+#Debugging option with address sanitizer
 myasan: ft_printf.h $(OBJS) $(NAME) main.c
 		@echo "Creating myasan..."
 		@$(CC) $(LDFLAGS) $(CTFLAGS) $(GFLAGS) main.c -o $@ -L ./ -lftprintf

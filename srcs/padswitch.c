@@ -20,7 +20,7 @@
 **	FGZ = flags->flagzero
 */
 
-void	padgen2(t_format *flags)
+static void	padgen2(t_format *flags)
 {
 	char	*t1;
 	char	*t2;
@@ -45,13 +45,13 @@ void	padgen2(t_format *flags)
 	FBLEN = W;
 }
 
-void	padgen(t_format *flags)
+void		padgen(t_format *flags)
 {
 	if (W > FBLEN)
 		padgen2(flags);
 }
 
-void	*stitch3(char *s1, char *s2, char *s3)
+void		*stitch3(char *s1, char *s2, char *s3)
 {
 	char	*str;
 
@@ -62,7 +62,7 @@ void	*stitch3(char *s1, char *s2, char *s3)
 	return (str);
 }
 
-void	*stitch2(char *s1, char *s2)
+void		*stitch2(char *s1, char *s2)
 {
 	char	*str;
 

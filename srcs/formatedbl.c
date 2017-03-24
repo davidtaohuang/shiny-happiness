@@ -13,7 +13,7 @@
 #include <math.h>
 #include "../includes/ft_printf.h"
 
-char	*makeexp(t_format *flags)
+static char	*makeexp(t_format *flags)
 {
 	char	*sign;
 	char	*tmp;
@@ -41,7 +41,7 @@ char	*makeexp(t_format *flags)
 	return (tmp2);
 }
 
-int		eprecision(t_format *flags, char **str, char lastdig)
+static int	eprecision(t_format *flags, char **str, char lastdig)
 {
 	char			*tmp;
 	unsigned int	len;
@@ -63,7 +63,7 @@ int		eprecision(t_format *flags, char **str, char lastdig)
 	return (((*str)[0] == '-' ? 2 : 1));
 }
 
-char	makeedbl2(t_format *flags, double n, char **str, int len)
+static char	makeedbl2(t_format *flags, double n, char **str, int len)
 {
 	char	*frac;
 	char	lastdig;
@@ -85,7 +85,7 @@ char	makeedbl2(t_format *flags, double n, char **str, int len)
 	return (lastdig);
 }
 
-char	*makeedbl(t_format *flags)
+static char	*makeedbl(t_format *flags)
 {
 	double		n;
 	char		*str;
@@ -113,7 +113,7 @@ char	*makeedbl(t_format *flags)
 	return (str);
 }
 
-void	formatedbl(t_format *flags)
+void		formatedbl(t_format *flags)
 {
 	char	*str;
 	char	*tmp;

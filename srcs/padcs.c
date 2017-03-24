@@ -20,7 +20,7 @@
 **	FGZ = flags->flagzero
 */
 
-int			ft_ubytes(unsigned char c)
+static int	ft_ubytes(unsigned char c)
 {
 	if (c <= (MB_CUR_MAX == 1 ? 0xFF : 0x7F))
 		return (1);

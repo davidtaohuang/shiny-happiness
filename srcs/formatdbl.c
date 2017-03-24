@@ -13,7 +13,7 @@
 #include <math.h>
 #include "../includes/ft_printf.h"
 
-char	*makeinfnan(double n)
+char		*makeinfnan(double n)
 {
 	char	*num;
 
@@ -27,7 +27,7 @@ char	*makeinfnan(double n)
 	return (num);
 }
 
-char	*makedbl(t_format *flags)
+static char	*makedbl(t_format *flags)
 {
 	double		n;
 	char		*str;
@@ -56,7 +56,7 @@ char	*makedbl(t_format *flags)
 	return (str);
 }
 
-char	*adddecpt(char *dec, int len)
+char		*adddecpt(char *dec, int len)
 {
 	char	*tmp;
 	int		i;
@@ -80,7 +80,7 @@ char	*adddecpt(char *dec, int len)
 	return (tmp);
 }
 
-void	formatdbl(t_format *flags)
+void		formatdbl(t_format *flags)
 {
 	char	*str;
 

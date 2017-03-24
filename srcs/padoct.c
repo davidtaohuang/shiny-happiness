@@ -20,7 +20,7 @@
 **	FGZ = flags->flagzero
 */
 
-char		*padowid(t_format *flags)
+static char	*padowid(t_format *flags)
 {
 	char	*tmp;
 	char	*o;

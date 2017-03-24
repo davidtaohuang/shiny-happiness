@@ -20,7 +20,7 @@
 **	FGZ = flags->flagzero
 */
 
-char		*padhexwid(t_format *flags)
+static char	*padhexwid(t_format *flags)
 {
 	char	*tmp;
 	char	*ox;

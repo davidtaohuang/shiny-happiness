@@ -12,28 +12,6 @@
 
 #include "../includes/ft_printf.h"
 
-int			ft_charlen(unsigned char *str)
-{
-	int		i;
-	int		len;
-
-	i = 0;
-	len = 0;
-	while (str[i])
-	{
-		if (str[i] < 0x80)
-			i++;
-		else if (str[i] < 0xe0)
-			i += 2;
-		else if (str[i] < 0xf0)
-			i += 3;
-		else
-			i += 4;
-		len++;
-	}
-	return (len);
-}
-
 static void	parsewc(t_format *flags, va_list *args)
 {
 	wchar_t	*tmp;

@@ -20,7 +20,7 @@
 **	FGZ = flags->flagzero
 */
 
-char		*padsign(t_format *flags)
+static char	*padsign(t_format *flags)
 {
 	char	*sign;
 	char	*tmp;
