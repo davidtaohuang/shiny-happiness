@@ -55,13 +55,13 @@ void	ft_wctouni(wchar_t wide, char *tmp)
 		tmp[1] = 128 | (63 & B[0]);
 		tmp[0] = 192 | (B[0] >> 6) | (B[1] << 2);
 	}
-	else if (wide <= 0x0FFF)
+	else if (wide <= 0xFFFF)
 	{
 		tmp[2] = 128 | (63 & B[0]);
 		tmp[1] = 128 | (B[0] >> 6) | (B[1] << 2 & 63);
 		tmp[0] = 224 | (B[1] >> 4);
 	}
-	else
+	else if (wide <= 0x1FFFFF)
 	{
 		tmp[3] = 128 | (63 & B[0]);
 		tmp[2] = 128 | (B[0] >> 6) | (B[1] << 2 & 60);
