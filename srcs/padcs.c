@@ -22,11 +22,11 @@
 
 int			ft_ubytes(unsigned char c)
 {
-	if (c < 0x80)
+	if (c < (MB_CUR_MAX == 1 ? 0xFF : 0x80))
 		return (1);
-	else if (c < 0xe0)
+	else if (c < 0xE0)
 		return (2);
-	else if (c < 0xf0)
+	else if (c < 0xF0)
 		return (3);
 	else
 		return (4);

@@ -17,7 +17,7 @@
 
 int		ft_wclen(wchar_t c)
 {
-	if (c <= 0x007F)
+	if (c <= (MB_CUR_MAX == 1 ? 0x00FF : 0x007F))
 		return (1);
 	if (c <= 0x07FF)
 		return (2);
@@ -43,31 +43,31 @@ size_t	ft_wcblen(wchar_t *wstr)
 
 void	ft_wctouni(wchar_t wide, char *tmp)
 {
-	if (wide > 0xFFFF)
+	if (wide <= (MB_CUR_MAX == 1 ? 0x00FF : 0x007F))
+		tmp[0] = B[0];
+	else if (wide <= 0x00FF)
+	{
+		tmp[1] = 128 | (63 & B[0]);
+		tmp[0] = 192 | (B[0] >> 6);
+	}
+	else if (wide <= 0x07FF)
+	{
+		tmp[1] = 128 | (63 & B[0]);
+		tmp[0] = 192 | (B[0] >> 6) | (B[1] << 2);
+	}
+	else if (wide <= 0x0FFF)
+	{
+		tmp[2] = 128 | (63 & B[0]);
+		tmp[1] = 128 | (B[0] >> 6) | (B[1] << 2 & 63);
+		tmp[0] = 224 | (B[1] >> 4);
+	}
+	else
 	{
 		tmp[3] = 128 | (63 & B[0]);
 		tmp[2] = 128 | (B[0] >> 6) | (B[1] << 2 & 60);
 		tmp[1] = 128 | (B[1] >> 4) | (B[2] << 4 & 48);
 		tmp[0] = 240 | (B[2] >> 2);
 	}
-	else if (wide > 0x07FF)
-	{
-		tmp[2] = 128 | (63 & B[0]);
-		tmp[1] = 128 | (B[0] >> 6) | (B[1] << 2 & 63);
-		tmp[0] = 224 | (B[1] >> 4);
-	}
-	else if (wide > 0x00FF)
-	{
-		tmp[1] = 128 | (63 & B[0]);
-		tmp[0] = 192 | (B[0] >> 6) | (B[1] << 2);
-	}
-	else if (wide > 0x007F)
-	{
-		tmp[1] = 128 | (63 & B[0]);
-		tmp[0] = 192 | (B[0] >> 6);
-	}
-	else
-		tmp[0] = B[0];
 }
 
 char	*ft_wstouni(wchar_t *wstr)
