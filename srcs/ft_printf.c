@@ -23,7 +23,7 @@ static void	findformat(t_data *pf, va_list *args)
 
 	tmp = pf->old;
 	len = ft_strchr(tmp, '%') - tmp;
-	if (len < 0)
+	if (len < 0 || len > (int)ft_strlen(pf->old))
 		len = ft_strchr(tmp, '\0') - tmp;
 	if (len)
 	{

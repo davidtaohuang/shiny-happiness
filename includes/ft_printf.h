@@ -72,10 +72,12 @@ typedef struct	s_data
 /*
 **	Macros that help my functions pass norm (mainly column width limits),
 **	trying to be consistent with their usage.
-**	1.	I don't use macros the macros until parseswitch; I think it will
+**	1.	pf is the name of my t_data struct and flags is the name of my 
+**		t_format struct.
+**	2.	I don't use macros the macros until parseswitch; I think it will
 **		help make it more legible, at least initially. Added some comments
 **		to clarify specific ones in padding functions
-**	2.	SA is an odd one, it's meant for checking null or zero values
+**	3.	SA is an odd one, it's meant for checking null or zero values
 **		after argument is converted to a string
 */
 
