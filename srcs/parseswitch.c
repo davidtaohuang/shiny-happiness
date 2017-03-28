@@ -21,7 +21,7 @@ void	parsen(t_format *flags, va_list *args, t_data *pf)
 
 void	parsepct(t_format *flags)
 {
-	*(char*)(flags->arg) = ft_strndup(&TYPE, 1);
+	flags->arg = ft_strndup(&TYPE, 1);
 	FBLEN = 1;
 	padgen(flags);
 }
